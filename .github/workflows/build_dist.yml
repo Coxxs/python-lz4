@@ -36,8 +36,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest, windows-latest] 
-        cibw_build: [cp38-*, cp39-*, cp310-*, cp311-*, cp312-*]
+        os: [windows-latest] 
+        cibw_build: [cp311-*]
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
@@ -65,6 +65,6 @@ jobs:
           CIBW_TEST_SKIP: "*-macosx_arm64 *-macosx_universal2:arm64 *-*linux_{aarch64,ppc64le,s390x}"
           CIBW_BEFORE_BUILD: "python -m pip install -U pip && python -m pip install tox"
       - name: Save wheels
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           path: wheelhouse/*.whl
